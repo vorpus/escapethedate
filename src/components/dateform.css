@@ -1,0 +1,11 @@
+.dateform {
+  width: 500px;
+}
+
+.form-group {
+  display: flex;
+}
+
+.dateform > input {
+  width: 200px;
+}
