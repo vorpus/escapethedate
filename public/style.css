@@ -1,0 +1,20 @@
+.mainform {
+  height: 400px;
+  background-image: url('https://thumbs.gfycat.com/HandsomeMetallicAmericanwirehair-size_restricted.gif');
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.secondary {
+  height: 400px;
+  background-color: blue;
+}
+
+video#bgvid {
+    position: fixed;
+    width: 100%;
+    z-index: -100;
+    transform: translateY(-20%);
+}

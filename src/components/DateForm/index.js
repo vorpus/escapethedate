@@ -51,7 +51,16 @@ class DateForm extends Component {
       <div className="dateform">
         <form>
           <div className='form-group'>
-            <label htmlFor='dateTime'>Date time</label>
+            <label htmlFor='userNumber'>💁</label>
+            <input
+              id='userNumber'
+              type='number'
+              placeholder='Your number'
+              onChange={this.update('userNumber')}
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='dateTime'>⏰</label>
             <DateTime
               id='dateTime'
               defaultValue={moment()}
@@ -59,16 +68,22 @@ class DateForm extends Component {
             />
           </div>
           <div className='form-group'>
-            <label htmlFor='userNumber'>Your number</label>
-            <input id='userNumber' type='number' onChange={this.update('userNumber')}></input>
+            <label htmlFor='dateNumber'>👤</label>
+            <input
+              id='dateNumber'
+              type='number'
+              placeholder='Their number'
+              onChange={this.update('dateNumber')}
+            />
           </div>
           <div className='form-group'>
-            <label htmlFor='dateNumber'>Their number</label>
-            <input id='dateNumber' type='number' onChange={this.update('dateNumber')}></input>
-          </div>
-          <div className='form-group'>
-            <label htmlFor='safetyNumber'>Friend's number</label>
-            <input id='safetyNumber' type='number' onChange={this.update('safetyNumber')}></input>
+            <label htmlFor='safetyNumber'>🕵️‍♀️</label>
+            <input
+              id='safetyNumber'
+              type='number'
+              placeholder='SOS number'
+              onChange={this.update('safetyNumber')}
+            />
           </div>
         </form>
         <button
