@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import DateForm from './components/DateForm';
+import DateTime from 'react-datetime';
 import './App.css';
+import './react-datetime.css';
 
 class App extends Component {
   constructor() {
@@ -11,6 +12,8 @@ class App extends Component {
       dateNumber: '',
       safetyNumber: ''
     }
+
+    this.updateDate = this.updateDate.bind(this);
   }
 
   submitContact(e) {
@@ -35,12 +38,17 @@ class App extends Component {
     return e => this.setState({ [property]: e.target.value });
   }
 
+  updateDate(e) {
+    this.setState({
+      dateTime: e.toDate(),
+    });
+  }
 
   render() {
     return (
       <div className="App">
           <form>
-            <input id="date" type="date" onChange={this.update('dateTime')}></input>
+            <DateTime onChange={this.updateDate}/>
             <input onChange={this.update('userNumber')}></input>
             <input onChange={this.update('dateNumber')}></input>
             <input onChange={this.update('safetyNumber')}></input>
