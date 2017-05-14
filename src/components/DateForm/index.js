@@ -18,11 +18,11 @@ class DateForm extends Component {
   }
 
   submitContact(e) {
-    fetch('/url', {
+    fetch('http://localhost:3000/api/signup/', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      method: 'POST',
       body: JSON.stringify({
         user: this.state.userNumber,
         datetime: this.state.dateTime,
