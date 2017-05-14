@@ -9,8 +9,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className="mainform">
-          <DateForm />
           <img src="./escape.png" alt="escape the date"/>
+          <DateForm />
         </div>
         <Instructions />
       </div>

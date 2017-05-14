@@ -87,19 +87,18 @@ function detailsObjectWithAddedMinutes(details, minutesToAdd) {
     });
 }
 app.get('/',function(req,res){
-   call('19294351864'); 
+   call('19294351864');
 });
 function scheduleMessages(details) {
-    const {
-        user, datetime, datee, friend
-    } = details;
-    sendtxt(`1${user}`, `Hey! We\'re all set for your date at ${datetime}, text STOP at any time to disable these reminders!`);
-    alarm(new Date(datetime), function () {
-        console.log(`sending message to 1${user}`);
-        sendtxt(`1${user}`, 'Hey! Everything ok?\n(O)K - Text again in 30!\n(S)TOP - Everything is peachy!\n(E)SCAPE - Call me!\n(H)ELP - Call my SOS!');
-        const newAlert = detailsObjectWithAddedMinutes(details, 30);
-        scheduleNoResponseReceived(newAlert);
-    });
+  const {user, datetime, datee, friend} = details;
+  sendtxt(`1${user}`, `Hey! We\'re all set for your date at ${datetime}, text STOP at any time to disable these reminders!`);
+  alarm(new Date(datetime), function() {
+    console.log(`sending message to 1${user}`);
+    sendtxt(`1${user}`, `Hey! Everything ok?\n(O)K - Text again in 30!\n(S)TOP - Everything is peachy!\n(E)SCAPE - Call me!\n(H)ELP - Call my SOS!`);
+
+    const newAlert = detailsObjectWithAddedMinutes(details, 30);
+    scheduleNoResponseReceived(newAlert);
+  });
 }
 
 function scheduleNoResponseReceived(details) {

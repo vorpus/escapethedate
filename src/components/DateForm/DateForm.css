@@ -47,3 +47,26 @@
 .dateform button:hover {
   background-color: rgba(255, 255, 255, 1);
 }
+
+@media only screen and (max-width: 768px) {
+  .dateform {
+    width: 100%;
+    background-color: rgba(255,255,255,0.8);
+  }
+
+  .dateform label {
+    width: 10%;
+  }
+
+  .dateform input {
+    width: 90%;
+    font-size: 24px;
+    border-bottom: none;
+  }
+
+  .dateform button {
+    width: 80%;
+    border: 1px solid rgba(0, 0, 0, 0.9);
+  }
+
+}

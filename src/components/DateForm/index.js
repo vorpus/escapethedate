@@ -103,7 +103,7 @@ class DateForm extends Component {
         <button
           onClick={this.submitContact.bind(this)}
         >
-          Submit
+          Schedule the Date!
         </button>
       </div>
     );

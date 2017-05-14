@@ -1,7 +1,6 @@
 .mainform {
   position: relative;
   padding: 20px;
-  height: 400px;
   background-image: url('https://thumbs.gfycat.com/GregariousWelldocumentedGnat-size_restricted.gif');
 
   background-size: cover;
@@ -22,9 +21,16 @@
   background-color: white;
 }
 
-video#bgvid {
-    position: fixed;
-    width: 100%;
-    z-index: -100;
-    transform: translateY(-20%);
+@media only screen and (max-width: 768px) {
+  .mainform img {
+    position: inherit;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 40px;
+  }
+
+  .mainform {
+    padding: 0;
+    background-image: url('http://i.imgur.com/qJ7VGoh.jpg');
+  }
 }
