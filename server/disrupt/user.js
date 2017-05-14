@@ -19,7 +19,7 @@ var signupSchema = new Schema({
         , required: true
     }
     , count: {
-        type: String
+        type: Number
         , required: false
     }
     , stop: {
