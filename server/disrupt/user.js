@@ -18,11 +18,17 @@ var signupSchema = new Schema({
         type: String
         , required: true
     }
+    , count: {
+        type: String
+        , required: false
+    }
+    , stop: {
+        type: Boolean
+        , required: true
+    }
 });
-
 signupSchema.pre('save', function (next) {
     var user = this;
     return next();
 });
-
 module.exports = mongoose.model('signup', signupSchema);
