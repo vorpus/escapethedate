@@ -31,6 +31,9 @@ class DateForm extends Component {
       })
     })
     .then ((res) => {
+      document.getElementsByClassName('dateform')[0].classList.add('fadeout');
+      document.getElementsByClassName('dateform-success')[0].classList.add('fadein');
+      document.getElementsByClassName('dateform-success')[0].style.visibility = 'visible';
       console.log(res.status)
     })
     .catch(err => console.log(err));
