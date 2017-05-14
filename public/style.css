@@ -1,15 +1,25 @@
 .mainform {
+  position: relative;
+  padding: 20px;
   height: 400px;
-  background-image: url('https://thumbs.gfycat.com/HandsomeMetallicAmericanwirehair-size_restricted.gif');
+  background-image: url('https://thumbs.gfycat.com/GregariousWelldocumentedGnat-size_restricted.gif');
 
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
 
+.mainform img {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 200px;
+  filter: drop-shadow(5px 5px black);
+}
+
 .secondary {
   height: 400px;
-  background-color: blue;
+  background-color: white;
 }
 
 video#bgvid {

@@ -37,7 +37,13 @@ class DateForm extends Component {
   }
 
   update(property) {
-    return e => this.setState({ [property]: e.target.value });
+    return e => {
+      const numberVal = e.target.value;
+      if (numberVal.length > 9) {
+        return;
+      }
+      this.setState({ [property]: e.target.value })
+    };
   }
 
   updateDate(e) {
@@ -54,32 +60,40 @@ class DateForm extends Component {
             <label htmlFor='userNumber'>💁</label>
             <input
               id='userNumber'
+              value={this.state.userNumber}
               type='number'
               placeholder='Your number'
               onChange={this.update('userNumber')}
             />
           </div>
           <div className='form-group'>
-            <label htmlFor='dateTime'>⏰</label>
-            <DateTime
-              id='dateTime'
-              defaultValue={moment()}
-              onChange={this.updateDate}
-            />
-          </div>
-          <div className='form-group'>
             <label htmlFor='dateNumber'>👤</label>
             <input
               id='dateNumber'
+              value={this.state.dateNumber}
               type='number'
               placeholder='Their number'
               onChange={this.update('dateNumber')}
             />
           </div>
           <div className='form-group'>
+            <label htmlFor='dateTime'>⏰</label>
+            <DateTime
+              id='dateTime'
+              defaultValue={moment().startOf('hour').add(1, 'hour')}
+              timeConstraints={
+                {minutes: {
+                  step: 30,
+                }}
+              }
+              onChange={this.updateDate}
+            />
+          </div>
+          <div className='form-group'>
             <label htmlFor='safetyNumber'>🕵️‍♀️</label>
             <input
               id='safetyNumber'
+              value={this.state.safetyNumber}
               type='number'
               placeholder='SOS number'
               onChange={this.update('safetyNumber')}
