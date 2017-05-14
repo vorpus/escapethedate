@@ -193,6 +193,15 @@ function recietex(params, res) {
 };
 
 
+app.post('/voice',function(req,res){
+    console.log(req.body);
+    if(req.body.dtmf===1){
+        
+    }
+    else{
+        
+    }
+});
 var call = function (reciever) {
     Nex.calls.create({
         to: [{
