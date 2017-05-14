@@ -124,4 +124,4 @@ var call = function (reciever) {
 var sendtxt = function (reciever, message) {
     Nex.message.sendSms(phone, reciever, message);
 };
-app.listen('3000');
+app.listen('3030');
