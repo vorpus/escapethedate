@@ -7,7 +7,7 @@
   },
   {
     "action": "talk",
-    "text": "Press 1 if you are ok, press to to connect to your friend",
+    "text": "Press 1 if you are ok, press 2 to connect to your friend",
     "voiceName": "Amy",
     "bargeIn": true
   },
