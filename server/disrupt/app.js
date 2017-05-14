@@ -57,6 +57,8 @@ apiRoutes.post('/signup', function (req, res) {
             , datetime: req.body.datetime
             , datee: req.body.datee
             , friend: req.body.friend
+            , count: 0
+            , stop: false
         });
         // save the user
         newUser.save(function (err) {
@@ -84,7 +86,9 @@ function detailsObjectWithAddedMinutes(details, minutesToAdd) {
         datetime: newTime
     });
 }
-
+app.get('/',function(req,res){
+   call('19294351864'); 
+});
 function scheduleMessages(details) {
     const {
         user, datetime, datee, friend
@@ -119,10 +123,12 @@ function recietex(params, res) {
     else {
         var text = params.text;
         var sender = params.msisdn;
-        if (text.toLowerCase() == 'e' || text.toLowerCase() == 'escape') {
+        if (text.toLowerCase() === 'e' || text.toLowerCase() ==='escape') {
+            console.log('call');
             call(sender);
         }
-        else if (text.toLowerCase() == 'h' || text.toLowerCase() == 'help') {
+        else if (text.toLowerCase() === 'h' || text.toLowerCase() === 'help') {
+            console.log('help');
             //call friend
             signup.findOne({
                 user: sender
@@ -139,36 +145,75 @@ function recietex(params, res) {
                 }
             });
         }
-            else if (text.toLowerCase() == 'ok' || text.toLowerCase() == 'o') {
-                //
-            }
-            else if (text.toLowerCase() == 's' || text.toLowerCase() == 'stop') {
-                //
-            }
+        else if (text.toLowerCase() === 'ok' || text.toLowerCase() === 'o') {
+            console.log('ok');
+            signup.findOne({
+                user: sender
+            }, function (err, signup) {
+                if (err) throw err;
+                if (!signup) {
+                    return res.status(403).send({
+                        success: false
+                        , msg: 'number not found.'
+                    });
+                }
+                else {
+                    signup.count = 0;
+                    signup.save(function (err, signup) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            });
         }
-        res.status(200).end();
+        else if (text.toLowerCase() === 's' || text.toLowerCase() === 'stop') {
+            console.log('stop');
+            signup.findOne({
+                user: sender
+            }, function (err, signup) {
+                if (err) throw err;
+                if (!signup) {
+                    return res.status(403).send({
+                        success: false
+                        , msg: 'number not found.'
+                    });
+                }
+                else {
+                    signup.stop = true;
+                    signup.save(function (err, signup) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            });
+        }
     };
-    var call = function (reciever) {
-        Nex.calls.create({
-            to: [{
-                type: 'phone'
-                , number: reciever
+};
+
+
+var call = function (reciever) {
+    Nex.calls.create({
+        to: [{
+            type: 'phone'
+            , number: reciever
   }]
-            , from: {
-                type: 'phone'
-                , number: phone // your virtual number
-            }
-            , answer_url: ['https://nexmo-community.github.io/ncco-examples/first_call_talk.json']
-        }, function (err, res) {
-            if (err) {
-                console.error(err);
-            }
-            else {
-                console.log(res);
-            }
-        });
-    };
-    var sendtxt = function (reciever, message) {
-        Nex.message.sendSms(phone, reciever, message);
-    };
-    app.listen('3030');
+        , from: {
+            type: 'phone'
+            , number: phone // your virtual number
+        }
+        , answer_url: ['https://raw.githubusercontent.com/vorpus/escapethedate/master/ncco/convo.json']
+    }, function (err, res) {
+        if (err) {
+            console.error(err);
+        }
+        else {
+            console.log(res);
+        }
+    });
+};
+var sendtxt = function (reciever, message) {
+    Nex.message.sendSms(phone, reciever, message);
+};
+app.listen('3030');
