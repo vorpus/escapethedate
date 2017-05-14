@@ -203,7 +203,7 @@ var call = function (reciever) {
             type: 'phone'
             , number: phone // your virtual number
         }
-        , answer_url: ['https://raw.githubusercontent.com/nexmo-community/ncco-examples/gh-pages/first_call_input.json']
+        , answer_url: ['https://raw.githubusercontent.com/vorpus/escapethedate/master/ncco/convo.json']
     }, function (err, res) {
         if (err) {
             console.error(err);
