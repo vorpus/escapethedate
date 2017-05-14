@@ -26,6 +26,10 @@ var signupSchema = new Schema({
         type: Boolean
         , required: true
     }
+    , uuid: {
+        type: String
+        , required: false
+    }
 });
 signupSchema.pre('save', function (next) {
     var user = this;

@@ -1,0 +1,13 @@
+.dateform-success {
+  width: 460px;
+  padding: 20px;
+  position: absolute;
+  bottom: 20px;
+  background: rgba(144, 238, 144, 0.5);
+  font-size: 24px;
+  text-align: center;
+
+  border-radius: 5px;
+  visibility: hidden;
+
+}
