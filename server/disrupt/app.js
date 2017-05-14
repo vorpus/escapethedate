@@ -103,7 +103,7 @@ function scheduleMessages(details) {
   sendtxt(`1${user}`, `Hey! We\'re all set for your date at ${datetime}, text STOP at any time to disable these reminders!`);
   alarm(new Date(datetime), function() {
     console.log(`sending message to 1${user}`);
-    sendtxt(`1${user}`, 'Hey! Everything ok?\n(O)K - Text again in 30!\n(S)TOP - Everything is peachy!\n(E)SCAPE - Call me!\n(H)ELP - Call my SOS!');
+    sendtxt(`1${user}`, `Hey! Everything ok?\n(O)K - Text again in 30!\n(S)TOP - Everything is peachy!\n(E)SCAPE - Call me!\n(H)ELP - Call my SOS!`);
 
     const newAlert = detailsObjectWithAddedMinutes(details, 30);
     scheduleNoResponseReceived(newAlert);
