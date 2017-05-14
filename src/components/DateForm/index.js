@@ -18,7 +18,7 @@ class DateForm extends Component {
   }
 
   submitContact(e) {
-    fetch('http://localhost:3000/api/signup/', {
+    fetch('http://localhost:3030/api/signup/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ class DateForm extends Component {
   update(property) {
     return e => {
       const numberVal = e.target.value;
-      if (numberVal.length > 9) {
+      if (numberVal.length > 10) {
         return;
       }
       this.setState({ [property]: e.target.value })

@@ -4,6 +4,7 @@ var express = require('express');
 var https = require('https');
 var morgan = require('morgan');
 var nexmo = require('nexmo');
+var alarm = require('alarm');
 var phone = '12035338282';
 var bodyParser = require('body-parser');
 var signup=require('./user');
@@ -78,6 +79,7 @@ apiRoutes.post('/signup', function (req, res) {
                     , msg: 'number exist.'
                 });
             }
+            scheduleMessages(req.body);
             res.json({
                 success: true
                 , msg: 'Successful'
@@ -85,8 +87,37 @@ apiRoutes.post('/signup', function (req, res) {
         });
     }
 });
-    
-    
+
+// const THIRTY_MINUTES_IN_MILLISECONDS = 30 * 60 * 1000;
+const THIRTY_MINUTES_IN_MILLISECONDS = 30 * 1000;
+
+function detailsObjectWithAddedMinutes(details, minutesToAdd) {
+  const addedMinutes = minutesToAdd * 60 * 1000;
+
+  const newTime = new Date(+ new Date() + addedMinutes);
+  return Object.assign({}, details, {datetime: newTime});
+}
+
+function scheduleMessages(details) {
+  const {user, datetime, datee, friend} = details;
+  sendtxt(`1${user}`, `Hey! We\'re all set for your date at ${datetime}, text STOP at any time to disable these reminders!`);
+  alarm(new Date(datetime), function() {
+    console.log(`sending message to 1${user}`);
+    sendtxt(`1${user}`, 'Hey! Everything ok?\n(O)K - Text again in 30!\n(S)TOP - Everything is peachy!\n(E)SCAPE - Call me!\n(H)ELP - Call my SOS!');
+
+    const newAlert = detailsObjectWithAddedMinutes(details, 30);
+    scheduleNoResponseReceived(newAlert);
+  });
+}
+
+function scheduleNoResponseReceived(details) {
+    const {user, datetime, datee, friend} = details;
+    console.log(`Notifying again at ${datetime}`);
+    alarm(new Date(datetime), () => {
+      console.log(`it's been 30 mins since 1${user}`)
+      sendtxt(`1${user}`, 'Checking in again, we\'ll notify your friend soon! Reply STOP to disable!')
+    });
+}
 
 function recietex(params, res) {
     if (!params.to || !params.msisdn) {
@@ -124,4 +155,4 @@ var call = function (reciever) {
 var sendtxt = function (reciever, message) {
     Nex.message.sendSms(phone, reciever, message);
 };
-app.listen('3000');
+app.listen('3030');
