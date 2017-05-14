@@ -193,7 +193,7 @@ function recietex(params, res) {
 };
 
 
-app.post('/voice',function(req,res){
+app.get('/voice',function(req,res){
     console.log(req.body);
     if(req.body.dtmf===1){
         

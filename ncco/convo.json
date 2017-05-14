@@ -14,6 +14,6 @@
   {
     "action": "input",
     "submitOnHash": "true",
-    "eventUrl": ["http://localhost:3000/voice/"]
+    "eventUrl": ["http://7be77180.ngrok.io/voice"]
   }
 ]
