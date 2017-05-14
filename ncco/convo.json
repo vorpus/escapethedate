@@ -1,8 +1,19 @@
 [
-    {
-        "action": "talk"
-        , "voiceName": "Russel"
-        , "text": "Escape the date Services S for stop H for help O for ok E for escape "
-	}
-   
+  {
+    "action": "talk",
+    "text": "Welcome to a escape the date",
+    "voiceName": "Amy",
+    "bargeIn": false
+  },
+  {
+    "action": "talk",
+    "text": "Press 1 if you are ok, press to to connect to your friend",
+    "voiceName": "Amy",
+    "bargeIn": true
+  },
+  {
+    "action": "input",
+    "submitOnHash": "true",
+    "eventUrl": ["https://example.com/ivr"]
+  }
 ]
