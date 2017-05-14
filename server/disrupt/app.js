@@ -190,6 +190,7 @@ function recietex(params, res) {
             });
         }
     };
+    res.send(200);
 };
 
 
