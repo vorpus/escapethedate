@@ -1,0 +1,16 @@
+[
+    {
+        "action": "talk"
+        , "text": "Hi, Your friend told us to call you. he or she needs your help. We will comunicate you with her shortly."
+        , "voiceName": "Amy"
+        , "bargeIn": false
+  }
+
+    , {
+        "action": "connect"
+        , "endpoint": [{
+            "type": "phone"
+            , "number": "12817776796"
+    }]
+  }
+]

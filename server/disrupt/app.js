@@ -142,7 +142,8 @@ function recietex(params, res) {
                     });
                 }
                 else {
-                    call(signup.friend);
+                    console.log('calling friend')
+                    callfriend(signup.friend, sender);
                 }
             });
         }
@@ -195,8 +196,36 @@ function recietex(params, res) {
 };
 app.post('/voice', function (req, res) {
     console.log(req.body);
-    if (req.body.dtmf === 1) {
-        res.send({});
+    if (req.body.dtmf == 1) {
+        signup.findOne({
+            uuid: req.body.uuid
+        }, function (err, signup) {
+            if (err) throw err;
+            if (!signup) {
+                return res.status(403).send({
+                    success: false
+                    , msg: 'number not found.'
+                });
+            }
+            else {
+                signup.count = 0;
+                signup.save(function (err, signup) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        });
+        const ncco = [
+            {
+                "action": "talk"
+                , "text": "Cool, Enjoy Your Date"
+                , "voiceName": "Amy"
+                , "bargeIn": false
+  }
+
+    ]
+        res.json(ncco);
     }
     else {
         console.log('in else')
@@ -213,12 +242,57 @@ app.post('/voice', function (req, res) {
             }
             else {
                 var phonefriend = signup.friend;
-                console.log('success');
-                res.redirect('../../ncco/convo2.json');
+                console.log(phonefriend);
+                const ncco = [
+                    {
+                        "action": "talk"
+                        , "text": "Ok, Give us one seccond, we will connect you."
+                        , "voiceName": "Amy"
+                        , "bargeIn": false
+  }
+
+    , {
+                        "action": "connect"
+                        , "endpoint": [{
+                            "type": "phone"
+                            , "number": phonefriend
+    }]
+  }
+]
+                res.json(ncco);
             }
         });
     }
 });
+var callfriend = function (reciever, contact) {
+    
+    Nex.calls.create({
+        to: [{
+            type: 'phone'
+            , number: reciever
+  }]
+        , from: {
+            type: 'phone'
+            , number: phone // your virtual number
+        }
+        , answer_url: [
+            {
+                "action": "talk"
+                , "text": "Hi, Your friend told us to call you. he or she needs your help. We will comunicate you with her shortly."
+                , "voiceName": "Amy"
+                , "bargeIn": false
+  }
+
+    , {
+                "action": "connect"
+                , "endpoint": [{
+                    "type": "phone"
+                    , "number": contact
+    }]
+  }
+]
+    });
+};
 var call = function (reciever) {
     Nex.calls.create({
         to: [{
