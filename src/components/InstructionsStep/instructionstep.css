@@ -1,0 +1,10 @@
+.instruction-step {
+  background: white;
+  width: 80%;
+  border-radius: 5px;
+  margin: 20px auto;
+  padding: 20px;
+
+  font-size: 24px;
+  filter: drop-shadow(5px 5px rgba(0, 0, 0, 0.5));
+}

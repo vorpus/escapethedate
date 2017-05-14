@@ -9,7 +9,7 @@ class DateForm extends Component {
     super();
     this.state = {
       userNumber: '',
-      dateTime: '',
+      dateTime: moment().startOf('hour').add(1, 'hour'),
       dateNumber: '',
       safetyNumber: ''
     }
@@ -24,10 +24,10 @@ class DateForm extends Component {
       },
       method: 'POST',
       body: JSON.stringify({
-        userNumber: this.state.userNumber,
-        dateTime: this.state.dateTime,
-        dateNumber: this.state.dateNumber,
-        safetyNumber: this.state.safetyNumber,
+        user: this.state.userNumber,
+        datetime: this.state.dateTime,
+        datee: this.state.dateNumber,
+        friend: this.state.safetyNumber,
       })
     })
     .then ((res) => {
@@ -80,7 +80,7 @@ class DateForm extends Component {
             <label htmlFor='dateTime'>⏰</label>
             <DateTime
               id='dateTime'
-              defaultValue={moment().startOf('hour').add(1, 'hour')}
+              defaultValue={this.state.dateTime}
               timeConstraints={
                 {minutes: {
                   step: 30,
