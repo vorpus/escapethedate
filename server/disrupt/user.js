@@ -19,12 +19,16 @@ var signupSchema = new Schema({
         , required: true
     }
     , count: {
-        type: String
+        type: Number
         , required: false
     }
     , stop: {
         type: Boolean
         , required: true
+    }
+    , uuid: {
+        type: String
+        , required: false
     }
 });
 signupSchema.pre('save', function (next) {

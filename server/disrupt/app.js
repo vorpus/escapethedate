@@ -86,19 +86,21 @@ function detailsObjectWithAddedMinutes(details, minutesToAdd) {
         datetime: newTime
     });
 }
-app.get('/',function(req,res){
-   call('19294351864');
+app.get('/', function (req, res) {
+    call('19294351864');
 });
-function scheduleMessages(details) {
-  const {user, datetime, datee, friend} = details;
-  sendtxt(`1${user}`, `Hey! We\'re all set for your date at ${datetime}, text STOP at any time to disable these reminders!`);
-  alarm(new Date(datetime), function() {
-    console.log(`sending message to 1${user}`);
-    sendtxt(`1${user}`, `Hey! Everything ok?\n(O)K - Text again in 30!\n(S)TOP - Everything is peachy!\n(E)SCAPE - Call me!\n(H)ELP - Call my SOS!`);
 
-    const newAlert = detailsObjectWithAddedMinutes(details, 30);
-    scheduleNoResponseReceived(newAlert);
-  });
+function scheduleMessages(details) {
+    const {
+        user, datetime, datee, friend
+    } = details;
+    sendtxt(`1${user}`, `Hey! We\'re all set for your date at ${datetime}, text STOP at any time to disable these reminders!`);
+    alarm(new Date(datetime), function () {
+        console.log(`sending message to 1${user}`);
+        sendtxt(`1${user}`, `Hey! Everything ok?\n(O)K - Text again in 30!\n(S)TOP - Everything is peachy!\n(E)SCAPE - Call me!\n(H)ELP - Call my SOS!`);
+        const newAlert = detailsObjectWithAddedMinutes(details, 30);
+        scheduleNoResponseReceived(newAlert);
+    });
 }
 
 function scheduleNoResponseReceived(details) {
@@ -122,7 +124,7 @@ function recietex(params, res) {
     else {
         var text = params.text;
         var sender = params.msisdn;
-        if (text.toLowerCase() === 'e' || text.toLowerCase() ==='escape') {
+        if (text.toLowerCase() === 'e' || text.toLowerCase() === 'escape') {
             console.log('call');
             call(sender);
         }
@@ -191,15 +193,30 @@ function recietex(params, res) {
     };
     res.send(200);
 };
-
-
-app.get('/voice',function(req,res){
+app.post('/voice', function (req, res) {
     console.log(req.body);
-    if(req.body.dtmf===1){
-        
+    if (req.body.dtmf === 1) {
+        res.send({});
     }
-    else{
-        
+    else {
+        console.log('in else')
+        signup.findOne({
+            uuid: req.body.uuid
+        }, function (err, signup) {
+            if (err) throw err;
+            if (!signup) {
+                console.log('in sign up erro')
+                return res.status(403).send({
+                    success: false
+                    , msg: 'number not found.'
+                });
+            }
+            else {
+                var phonefriend = signup.friend;
+                console.log('success');
+                res.redirect('../../ncco/convo2.json');
+            }
+        });
     }
 });
 var call = function (reciever) {
@@ -218,10 +235,31 @@ var call = function (reciever) {
             console.error(err);
         }
         else {
-            console.log(res);
+            updateuuid(res.uuid, reciever);
         }
     });
 };
+var updateuuid = function (uuid1, reciever) {
+    signup.findOne({
+        user: reciever
+    }, function (err, signup) {
+        if (err) throw err;
+        if (!signup) {
+            return ({
+                success: false
+                , msg: 'number not found.'
+            });
+        }
+        else {
+            signup.uuid = uuid1;
+            signup.save(function (err, signup) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+    });
+}
 var sendtxt = function (reciever, message) {
     Nex.message.sendSms(phone, reciever, message);
 };
