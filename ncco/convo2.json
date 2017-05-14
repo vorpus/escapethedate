@@ -1,0 +1,22 @@
+
+    ncco = [
+        {
+          "action": "talk",
+          "text": "I understand its time to let go",
+          "voiceName": "Russel"
+        },
+        {
+          "action": "connect",
+          "eventUrl": [""],
+          "from": "441632960960",
+          "endpoint": [
+            {
+              "type": "phone",
+              "number": "441632960961"
+            }
+          ]
+        }
+      ]
+  
+  
+
